@@ -17,7 +17,6 @@ def load_data(csv, csv2):
     df2 = df2.set_index('OBJECTID').ROUTE_LIST.apply(pd.Series).stack()\
         .reset_index(level=0).rename(columns={0: 'ROUTE_LIST'})
     merged = df.merge(df2, left_on='Rte', right_on='ROUTE_LIST', how='inner')
-    print(merged)
     return merged
 
 
