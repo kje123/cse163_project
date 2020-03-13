@@ -110,9 +110,9 @@ def stop_map(df):
                            (pd.to_numeric(grouped['X']),
                             pd.to_numeric(grouped['Y'])))
     gdf.plot(marker='*', column=gdf['# 6-20 Min Late'],
-             markersize=16, cmap='cool', ax=ax1)
+             markersize=16, cmap='inferno', ax=ax1)
     gdf.plot(marker='*', column=gdf['# 21-30 Min Late'],
-             markersize=16, cmap='cool', ax=ax2)
+             markersize=16, cmap='inferno', ax=ax2)
     fig2, (ax3, ax4) = plt.subplots(1, 2)
     map1 = ax3.imshow(np.stack([gdf['# 6-20 Min Late'],
                                 gdf['# 6-20 Min Late']]), cmap='inferno')
@@ -138,11 +138,10 @@ def over_time(df):
     saves said graph to the graphs folder
     """
     fig, [ax1, ax2] = plt.subplots(1, 2, figsize=(10, 8))
-    df_hour = df
-    df_hour['Hour'] = pd.to_datetime(df['Trip St Tm'],
-                                     format='%I:%M %p').dt.hour
-    grouped = df_hour.groupby('Hour').agg({'# 6-20 Min Late': 'mean',
-                                           '# 21-30 Min Late': 'mean'})
+    df['Hour'] = pd.to_datetime(df['Trip St Tm'],
+                                format='%I:%M %p').dt.hour
+    grouped = df.groupby('Hour').agg({'# 6-20 Min Late': 'mean',
+                                      '# 21-30 Min Late': 'mean'})
     x_labels = ['12AM', '1AM', '2AM', '3AM', '4AM', '5AM', '6AM', '7AM',
                 '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM',
                 '4PM', '5PM', '6PM', '7PM', '8PM', '9PM', '10PM', '11PM']
