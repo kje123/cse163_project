@@ -77,10 +77,10 @@ def stop_map(df):
                            geometry=gpd.points_from_xy
                            (pd.to_numeric(grouped['X']),
                             pd.to_numeric(grouped['Y'])))
-    gdf.plot(marker='*', c=gdf['# 6-20 Min Late'],
-             markersize=14, cmap='inferno', ax=ax1)
-    gdf.plot(marker='*', c=gdf['# 21-30 Min Late'],
-             markersize=14, cmap='inferno', ax=ax2)
+    gdf.plot(marker='*', column=gdf['# 6-20 Min Late'],
+             markersize=16, cmap='inferno', ax=ax1)
+    gdf.plot(marker='*', column=gdf['# 21-30 Min Late'],
+             markersize=16, cmap='inferno', ax=ax2)
     fig2, (ax3, ax4) = plt.subplots(1, 2)
     map1 = ax3.imshow(np.stack([gdf['# 6-20 Min Late'],
                                 gdf['# 6-20 Min Late']]), cmap='inferno')
@@ -97,7 +97,7 @@ def stop_map(df):
 
 
 def over_time(df):
-    pass
+    df_times = pd.to_datetime(df['Trip St Tm'], format='%I:%M %p')
 
 
 def main():
@@ -105,7 +105,8 @@ def main():
                    'data/Transit_Stops_for_King_County_Metro__transitstop_point.csv')
     # late_routes(df)
     # inbound_outbound(df)
-    stop_map(df)
+    # stop_map(df)
+    over_time(df)
 
 
 if __name__ == '__main__':
